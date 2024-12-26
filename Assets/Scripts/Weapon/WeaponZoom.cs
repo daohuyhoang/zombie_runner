@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -11,20 +12,36 @@ public class WeaponZoom : MonoBehaviour
     [SerializeField] float zoomedInFOV = 20f;
 
     bool zoomedInToggle = false;
+
+    void OnEnable()
+    {
+        ZoomOut();
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(1))
         {
             if (zoomedInToggle == false)
             {
-                zoomedInToggle = true;
-                playerFollowCamera.m_Lens.FieldOfView = zoomedInFOV;
+                ZoomIn();
             }
             else
             {
-                zoomedInToggle = false;
-                playerFollowCamera.m_Lens.FieldOfView = zoomedOutFOV;
+                ZoomOut();
             }
         }
+    }
+
+    private void ZoomOut()
+    {
+        zoomedInToggle = false;
+        playerFollowCamera.m_Lens.FieldOfView = zoomedOutFOV;
+    }
+
+    private void ZoomIn()
+    {
+        zoomedInToggle = true;
+        playerFollowCamera.m_Lens.FieldOfView = zoomedInFOV;
     }
 }
