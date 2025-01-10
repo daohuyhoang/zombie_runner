@@ -1,6 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using Cinemachine;
+using TMPro;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -13,6 +12,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] float range = 100f;
     [SerializeField] float damage = 50f;
     [SerializeField] float timeBetweenShots = 0.5f;
+    [SerializeField] TextMeshProUGUI ammoText;
 
     bool canShoot = true;
 
@@ -22,6 +22,7 @@ public class Weapon : MonoBehaviour
     }
     void Update()
     {
+        DisplayAmmo();
         if (Input.GetMouseButtonDown(0) && canShoot == true)
         {
             StartCoroutine(Shoot());
@@ -64,5 +65,11 @@ public class Weapon : MonoBehaviour
     void PlayMuzzleFlash()
     {
         muzzleFlash.Play();
+    }
+
+    void DisplayAmmo()
+    {
+        int currentAmmo = ammoSlot.GetAmmoAmount(ammoType);
+        ammoText.text = currentAmmo.ToString();
     }
 }
